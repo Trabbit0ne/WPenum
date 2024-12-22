@@ -29,7 +29,7 @@ echo " / / /\ \ \/ _ \___ _ __  _   _ _ __ ___  "
 echo " \ \/  \/ / /_)/ _ \ '_ \| | | | '_ ' _ \ "
 echo "  \  /\  / ___/  __/ | | | |_| | | | | | |"
 echo "   \/  \/\/    \___|_| |_|\__,_|_| |_| |_|"
-echo -e "${ORANGE}                           Enhanced Edition${NE}"
+echo -e "${ORANGE}                       Trabbit${NE}"
 echo
 
 # Check if a URL is provided
