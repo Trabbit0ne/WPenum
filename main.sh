@@ -9,7 +9,13 @@ fi
 DOMAIN=$1
 
 # Fetch URLs from the Wayback Machine using waybackurls
-wp_json_urls=$(waybackurls $DOMAIN | grep -P '^https://[^/]+/wp-json/wp/v2/users/?$')
+wp_json_urls=$(waybackurls $DOMAIN | grep -P '/wp-json/wp/v2/users/?$')
+
+# Check if any wp_json_urls are found
+if [ -z "$wp_json_urls" ]; then
+    echo -e "${RED}No wp-json URLs found in Wayback Machine.${NE}"
+    exit 1
+fi
 
 # VARIABLES
 
@@ -47,7 +53,7 @@ fi
 # Helper function for JSON parsing (updated to explicitly handle null and empty values)
 parse_json() {
     # This will extract the name field from each object in the array
-    echo "$1" | jq -r '.[] | select(.name != null and .name != "") | "ID: \(.id), Username: \(.name)"'
+    echo "$1" | jq -r '.[] | select(.name != null and .name != "") | "ID: \(.id), Username: \(.name)"' || echo -e "${RED}Failed to parse JSON.${NE}"
 }
 
 # Method 1: WP REST API
