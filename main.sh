@@ -9,7 +9,7 @@ fi
 DOMAIN=$1
 
 # Fetch URLs from the Wayback Machine using waybackurls
-wp_json_urls=$(waybackurls $DOMAIN | grep 'wp-json')
+wp_json_urls=$(waybackurls $DOMAIN | grep -P '^https://[^/]+/wp-json/wp/v2/users/?$')
 
 # VARIABLES
 
@@ -46,6 +46,7 @@ fi
 
 # Helper function for JSON parsing (updated to explicitly handle null and empty values)
 parse_json() {
+    # This will extract the name field from each object in the array
     echo "$1" | jq -r '.[] | select(.name != null and .name != "") | "ID: \(.id), Username: \(.name)"'
 }
 
